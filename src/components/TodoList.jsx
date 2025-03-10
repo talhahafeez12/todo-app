@@ -13,7 +13,6 @@ function TodoList() {
             let all = [];
             for (var i = 1; i < snapshot.val().length; i++) {
                 if (snapshot.val()[i] != undefined){
-                    console.log("In Loop: " + snapshot.val()[i]);
                     all.push(snapshot.val()[i]);
                 }
             }
@@ -52,7 +51,7 @@ function TodoList() {
         var minutes = current_datetime.getMinutes();
         return `${month}/${day}/${year} ${hour}:${minutes}${end}`; 
     }
-    console.log(tasks);
+
     function deleteTask(id) {
         const dbRef = ref(db, '/' + id);
         remove(dbRef);
