@@ -12,7 +12,9 @@ function TodoList() {
             const snapshot = await get(dbRef);
             let all = [];
             for (var i = 1; i < snapshot.val().length; i++) {
-                all.push(snapshot.val()[i]);
+                if (snapshot.val()[i] != undefined){
+                    all.push(snapshot.val()[i]);
+                }
             }
             setTasks(all);
         };
