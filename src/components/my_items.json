@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "text": "Doctor Appointment",
+        "completed": true,
+        "className": true,
+        "date": "3/9/2025 11:40pm",
+        "editing": false
+    },
+    {
+        "id": 2,
+        "text": "Meeting at School",
+        "completed": false,
+        "className": false,
+        "date": "3/9/2025 11:40pm",
+        "editing": false
+    }
+]

@@ -1,37 +1,36 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import TodoItem from './TodoItem';
 import 'reactjs-popup/dist/index.css';
+import { db } from '../firebase';
+import {ref, get, update, set, remove} from 'firebase/database';
 
 function TodoList() {
-    const [tasks, setTasks] = useState([
-        {
-            id: 1,
-            text: 'Doctor Appointment',
-            completed: true,
-            className: true,
-            date: getDate(),
-            editing: false
-        }, 
-        {
-            id: 2,
-            text: 'Meeting at School',
-            completed: false,
-            className: false,
-            date: getDate(),
-            editing: false
-        }
-    ]);
-    
+    const [tasks, setTasks] = useState([]);
+    useEffect(() => {
+            const fetchData = async () => {
+            const dbRef = ref(db, "/");
+            const snapshot = await get(dbRef);
+            let all = [];
+            for (var i = 1; i < snapshot.val().length; i++) {
+                all.push(snapshot.val()[i]);
+            }
+            setTasks(all);
+        };
+        fetchData();
+    }, []);
+
     const [text, setText] = useState('');
     function addTask(text) {
         const newTask = {
-            id: Date.now(),
+            id: tasks[tasks.length - 1].id + 1,
             text,
             completed: false,
             className: false,             
             date: getDate(),
             editing: false
-        };
+        };        
+        const dbRef = ref(db, '/' + (tasks[tasks.length - 1].id + 1));
+        set(dbRef, newTask);
         setTasks([...tasks, newTask]);
         setText('');
     }
@@ -42,12 +41,18 @@ function TodoList() {
         var year = current_datetime.getFullYear();
         var day = current_datetime.getDate();
         var hour = current_datetime.getHours();
+        var end = "am";
+        if (hour >= 12) {
+            end = "pm";
+        }
         hour = hour % 12;
         var minutes = current_datetime.getMinutes();
-        return `${month}/${day}/${year} ${hour}:${minutes}`; 
+        return `${month}/${day}/${year} ${hour}:${minutes}${end}`; 
     }
 
     function deleteTask(id) {
+        const dbRef = ref(db, '/' + id);
+        remove(dbRef);
         setTasks(tasks.filter(task => task.id !== id));
     }
 
@@ -64,6 +69,11 @@ function TodoList() {
     function ChangeText(id, new_text) {
         setTasks(tasks.map(task => {
             if (task.id === id) {
+                const dbRef = ref(db, "/" + id);
+                update(dbRef, {
+                    text: new_text,
+                    date: getDate()
+                });
                 return {...task, text: new_text, date: getDate(), editing: !task.editing};
             } else {
                 return task;
@@ -74,6 +84,11 @@ function TodoList() {
     function toggleCompleted(id) {
         setTasks(tasks.map(task => {
             if (task.id === id) {
+                const dbRef = ref(db, "/" + id);
+                update(dbRef, {
+                    completed: !task.completed,
+                    className: !task.className
+                });
                 return {...task, completed: !task.completed, className: !task.className};
             } else {
                 return task;
