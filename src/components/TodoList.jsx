@@ -49,7 +49,7 @@ function TodoList() {
         var minutes = current_datetime.getMinutes();
         return `${month}/${day}/${year} ${hour}:${minutes}${end}`; 
     }
-
+    console.log(tasks);
     function deleteTask(id) {
         const dbRef = ref(db, '/' + id);
         remove(dbRef);
