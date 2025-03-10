@@ -1,0 +1,20 @@
+.todo-item-completed, .todo-item-not-completed {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.todo-item-completed p {
+  color: #888;
+  text-decoration: line-through;
+}
+
+.todo-list {
+  margin: 100px;
+  text-align: center;
+}
+
+.to-add input, .to-add button {
+  padding: 5px;
+  margin: 5px;
+}
