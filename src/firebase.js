@@ -2,13 +2,12 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBgtEuxMfdyIhe5L2uadsL5uze1fHiH4nQ",
   authDomain: "mytodolist-53bd8.firebaseapp.com",
+  databaseURL: "https://mytodolist-53bd8-default-rtdb.firebaseio.com",
   projectId: "mytodolist-53bd8",
   storageBucket: "mytodolist-53bd8.firebasestorage.app",
   messagingSenderId: "415107444771",
