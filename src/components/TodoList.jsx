@@ -13,6 +13,7 @@ function TodoList() {
             let all = [];
             for (var i = 1; i < snapshot.val().length; i++) {
                 if (snapshot.val()[i] != undefined) {
+                    console.log(snapshot.val()[i]);
                     all.push(snapshot.val()[i]);
                 }
             }
@@ -36,7 +37,7 @@ function TodoList() {
         setTasks([...tasks, newTask]);
         setText('');
     }
-
+    console.log(tasks);
     function getDate() {
         var current_datetime = new Date();
         var month = current_datetime.getMonth() + 1;
