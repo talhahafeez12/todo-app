@@ -4,11 +4,13 @@ import 'reactjs-popup/dist/index.css';
 import { db } from '../firebase';
 import {ref, get, update, set, remove} from 'firebase/database';
 
-function TodoList() {
+function TodoList({day, month, year}) {
     const [tasks, setTasks] = useState([]);
+    const months = ["January", "February", "March", "April", "May", "June", 
+        "July", "August", "September", "October", "November", "December"];
     useEffect(() => {
             const fetchData = async () => {
-            const dbRef = ref(db, "/");
+            const dbRef = ref(db, "/" + month + "/" + day);
             const snapshot = await get(dbRef);
             let all = [];
             for (let id in snapshot.val()) {
@@ -18,20 +20,36 @@ function TodoList() {
             }
             setTasks(all);
         };
+        
         fetchData();
-    }, []);
+    }, [day, month]);
 
     const [text, setText] = useState('');
     function addTask(text) {
-        const newTask = {
-            id: tasks[tasks.length - 1].id + 1,
-            text,
-            completed: false,
-            className: false,             
-            date: getDate(),
-            editing: false
-        };        
-        const dbRef = ref(db, '/' + (tasks[tasks.length - 1].id + 1));
+        var newTask;
+        var dbRef;
+        if (tasks.length === 0) {
+            newTask = {
+                id: 1,
+                text: text,
+                completed: false,
+                className: false,             
+                date: getDate(),
+                editing: false
+            };
+            dbRef = ref(db, "/" + month + "/" + day + '/' + (1));
+        } else {
+            newTask = {
+                id: tasks[tasks.length - 1].id + 1,
+                text: text,
+                completed: false,
+                className: false,             
+                date: getDate(),
+                editing: false
+            }; 
+            dbRef = ref(db, "/" + month + "/" + day + '/' + (tasks[tasks.length - 1].id + 1));
+        }
+       
         set(dbRef, newTask);
         setTasks([...tasks, newTask]);
         setText('');
@@ -52,7 +70,7 @@ function TodoList() {
     }
 
     function deleteTask(id) {
-        const dbRef = ref(db, '/' + id);
+        const dbRef = ref(db, "/" + month + "/" + day + '/' + id);
         remove(dbRef);
         setTasks(tasks.filter(task => task.id !== id));
     }
@@ -70,7 +88,7 @@ function TodoList() {
     function ChangeText(id, new_text) {
         setTasks(tasks.map(task => {
             if (task.id === id) {
-                const dbRef = ref(db, "/" + id);
+                const dbRef = ref(db, "/" + month + "/" + day + '/' + id);
                 update(dbRef, {
                     text: new_text,
                     date: getDate()
@@ -85,7 +103,7 @@ function TodoList() {
     function toggleCompleted(id) {
         setTasks(tasks.map(task => {
             if (task.id === id) {
-                const dbRef = ref(db, "/" + id);
+                const dbRef = ref(db, "/" + month + "/" + day + '/' + id);
                 update(dbRef, {
                     completed: !task.completed,
                     className: !task.className
@@ -99,7 +117,7 @@ function TodoList() {
 
     return (
         <div className="todo-list">
-            <h1>To-Do List</h1>
+            <h1>To-Do List - {`${months[month - 1]} ${day}, ${year}`}</h1>
             {tasks.map(task => (
                 <TodoItem key={task.id}
                 task={task}
@@ -109,8 +127,8 @@ function TodoList() {
                 ChangeText={ChangeText}
             />))}
             <div className="to-add">
-                <input value={text} onChange={e=> setText(e.target.value)}/>
-                <button onClick={() => addTask(text)}>Add</button>
+                <input value={text} className="inputTask" onChange={e=> setText(e.target.value)}/>
+                <button className='listButtons' onClick={() => addTask(text)}>Add</button>
             </div>
 
         </div>

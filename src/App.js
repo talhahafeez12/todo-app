@@ -3,13 +3,13 @@
 // Used ChatGPT to help with connecting app to firebase
 
 import React from 'react';
-import TodoList from './components/TodoList';
+import TodoMonth from './components/TodoMonth';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <TodoList/>
+      <TodoMonth/>
     </div>
   );
 }

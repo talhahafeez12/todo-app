@@ -10,11 +10,59 @@
 }
 
 .todo-list {
-  margin: 100px;
+  margin-bottom: 100px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 10px;
   text-align: center;
 }
 
-.to-add input, .to-add button {
-  padding: 5px;
-  margin: 5px;
+.todo-month {
+  text-align: center;
+}
+
+.listButtons {
+  margin: 10px;
+  padding: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  transition-duration: 0.4s;
+  background-color: crimson;
+  border: 1px black solid;
+  color: white;
+  font-size: larger;
+}
+
+.editButtons {
+  padding-left: 50px;
+  padding-right: 50px;
+  margin: 2px;
+  transition-duration: 0.4s;
+  background-color: crimson;
+  border: 1px black solid;
+  color: white;
+  font-size: larger;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+.listButtons:hover, .editButtons:hover {
+  background-color: gold;
+  color: black;
+}
+
+.todo-days {
+  margin-left: 500px;
+  margin-right: 500px;
+}
+
+.inputTask {
+  padding-right: 200px;
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 0px;
+  font-size: larger;
 }

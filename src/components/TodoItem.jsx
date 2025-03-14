@@ -18,10 +18,10 @@ function TodoItem({task, deleteTask, toggleCompleted, editTask, ChangeText}) {
             checked={task.completed}
             onChange={handleChange}/>
 
-            {task.editing && <input value={text} onChange={e=> setText(e.target.value)}/>}
+            {task.editing && <input className="inputTask" value={text} onChange={e=> setText(e.target.value)}/>}
             {task.editing && <ButtonGroup orientation="vertical" aria-label="Vertical button group">
-                    <button onClick={() => editTask(task.id)}>X</button>
-                    <button onClick={() => DoneChanging(task.id)}>Done</button>
+                    <button className='editButtons' onClick={() => editTask(task.id)}>X</button>
+                    <button className='editButtons' onClick={() => DoneChanging(task.id)}>Done</button>
                 </ButtonGroup>}
             {!task.editing && <p>{task.text}
             <br/>
@@ -29,8 +29,8 @@ function TodoItem({task, deleteTask, toggleCompleted, editTask, ChangeText}) {
             </p>
             }
             {!task.editing && <ButtonGroup orientation="vertical" aria-label="Vertical button group">
-                <button onClick={() => deleteTask(task.id)}>X</button>
-                <button onClick={() => editTask(task.id)}>Edit</button>
+                <button className='editButtons' onClick={() => deleteTask(task.id)}>X</button>
+                <button className='editButtons' onClick={() => editTask(task.id)}>Edit</button>
             </ButtonGroup>}
                  
         </div>
