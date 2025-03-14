@@ -2,11 +2,13 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
+  position: relative;
 }
 
 .todo-item-completed p {
   color: #888;
   text-decoration: line-through;
+  position: relative;
 }
 
 .todo-list {
@@ -15,6 +17,7 @@
   margin-right: 100px;
   margin-top: 10px;
   text-align: center;
+  position: relative;
 }
 
 .todo-month {
@@ -31,6 +34,7 @@
   border: 1px black solid;
   color: white;
   font-size: larger;
+  position: relative;
 }
 
 .editButtons {
@@ -42,20 +46,25 @@
   border: 1px black solid;
   color: white;
   font-size: larger;
+  position: relative;
 }
 
 h1 {
   font-size: 50px;
+  position: relative;
 }
 
 .listButtons:hover, .editButtons:hover {
   background-color: gold;
   color: black;
+  position: relative;
 }
 
 .todo-days {
-  margin-left: 500px;
-  margin-right: 500px;
+  text-align: center;
+  margin-left: 20%;
+  margin-right: 20%;
+  position: relative;
 }
 
 .inputTask {
@@ -65,4 +74,15 @@ h1 {
   padding-bottom: 10px;
   margin: 0px;
   font-size: larger;
+  position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+  button {
+    position: relative;  /* Or 'absolute' or 'fixed', based on your need */
+    margin: 10px;
+    padding: 8px 16px;
+    width: 100%;  /* Make button width 100% for mobile */
+    text-align: center;  /* Center the text inside the button */
+  }
 }
